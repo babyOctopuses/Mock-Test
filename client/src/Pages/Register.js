@@ -1,9 +1,11 @@
 import { Component } from "react";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
+import Navbars from "../components/Navbar";
 
 export default function Register() {
   return (
     <div>
+      <Navbars />
       <h2>Sign Up</h2>
       <Form className="form">
         <FormGroup>
