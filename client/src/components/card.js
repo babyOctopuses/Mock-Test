@@ -1,45 +1,31 @@
 import React from "react";
-import {
-  Card,
-  CardTitle,
-  CardImg,
-  CardBody,
-  CardGroup,
-  CardSubtitle,
-  CardText,
-  CardImgOverlay,
-} from "reactstrap";
+import { Card } from "react-bootstrap";
+import EditModal from "./EditModal";
+import DeleteModal from "./deleteModal";
 
-function card() {
+function card(props) {
   return (
-    <div>
-      <CardGroup>
-        <Card>
-          <CardImg
-            alt="Card image cap"
-            src="https://picsum.photos/318/180"
-            top
-            width="50%"
-          />
-          <CardImgOverlay>
-            <CardTitle tag="h5">Card Title</CardTitle>
-            <CardText>
-              This is a wider card with supporting text below as a natural
-              lead-in to additional content. This content is a little bit
-              longer.
-            </CardText>
-            <CardText>
-              <small className="text-muted">Last updated 3 mins ago</small>
-            </CardText>
-          </CardImgOverlay>
-          <CardBody>
-            <CardTitle tag="h5">Bicycle TDR 150</CardTitle>
-            <CardSubtitle className="mb-2 text-muted" tag="h6">
-              $200
-            </CardSubtitle>
-          </CardBody>
-        </Card>
-      </CardGroup>
+    <div style={{ display: "flex", columnCount: "3" }}>
+      <Card style={{ width: "18rem", marginTop: "1rem", marginLeft: "1rem" }}>
+        <Card.ImgOverlay>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "right",
+              alignItems: "flex-start",
+              height: "50vh",
+            }}
+          >
+            <EditModal />
+            <DeleteModal />
+          </div>
+        </Card.ImgOverlay>
+        <Card.Body>
+          <Card.Img variant="top" src={props.image} />
+          <Card.Title>{props.title}</Card.Title>
+          <Card.Text>{props.price}</Card.Text>
+        </Card.Body>
+      </Card>
     </div>
   );
 }

@@ -1,37 +1,29 @@
-import { Component } from "react";
-import { Button, Form, FormGroup, Input, Label } from "reactstrap";
-import Navbars from "../components/Navbar";
+import RegisterCard from "../components/registerCard";
 
 export default function Register() {
   return (
     <div>
-      <Navbars />
-      <h2>Sign Up</h2>
-      <Form className="form">
-        <FormGroup>
-          <Label for="exampleEmail">Name</Label>
-          <Input type="Name" name="Name" id="Name" placeholder="JohnDoe" />
-        </FormGroup>
-        <FormGroup>
-          <Label for="exampleEmail">Email</Label>
-          <Input
-            type="email"
-            name="email"
-            id="exampleEmail"
-            placeholder="example@example.com"
-          />
-        </FormGroup>
-        <FormGroup>
-          <Label for="examplePassword">Password</Label>
-          <Input
-            type="password"
-            name="password"
-            id="examplePassword"
-            placeholder="********"
-          />
-        </FormGroup>
-        <Button>Submit</Button>
-      </Form>
+      <div
+        style={{
+          display: "block",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+          marginTop: "10rem",
+        }}
+      >
+        <RegisterCard />
+        <div
+          style={{
+            display: "block",
+            marginTop: "8px",
+          }}
+        >
+          <p>
+            Already have an account? <a href="/">Login</a>
+          </p>
+        </div>
+      </div>
     </div>
   );
 }
