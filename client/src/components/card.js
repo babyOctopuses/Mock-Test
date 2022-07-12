@@ -6,7 +6,14 @@ import DeleteModal from "./deleteModal";
 function card(props) {
   return (
     <div style={{ display: "flex", columnCount: "3" }}>
-      <Card style={{ width: "18rem", marginTop: "1rem", marginLeft: "1rem" }}>
+      <Card
+        style={{
+          width: "18rem",
+          marginTop: "1rem",
+          marginLeft: "1rem",
+          height: "25rem",
+        }}
+      >
         <Card.ImgOverlay>
           <div
             style={{
@@ -17,7 +24,7 @@ function card(props) {
             }}
           >
             <EditModal />
-            <DeleteModal />
+            <DeleteModal id={props.id} />
           </div>
         </Card.ImgOverlay>
         <Card.Body>

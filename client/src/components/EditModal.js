@@ -1,11 +1,26 @@
 import React, { useState } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
 import { BiEdit } from "react-icons/bi";
+import axios from "axios";
 
 function Modals() {
   const [show, setShow] = useState(false);
+  const [product, setProduct] = useState("");
+  const [price, setPrice] = useState("");
+  const [imgUrl, setImgUrl] = useState("");
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const updateAPIData = (id) => {
+    axios.put(
+      `https://private-f25a3d-testbinar.apiary-mock.com/v1/products/${id}`,
+      {
+        product,
+        price,
+        imgUrl,
+      }
+    );
+  };
 
   return (
     <>

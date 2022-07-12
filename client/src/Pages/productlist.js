@@ -1,25 +1,53 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { Button } from "react-bootstrap";
 import Card from "../components/card";
 import Navbar2 from "../components/Navbar2";
 import "../styles/Card.css";
-import { Products } from "../components/Products";
+import axios from "axios";
+import { CardDeck } from "reactstrap";
 
-function productlist() {
+function Productlist() {
+  const [product, setProduct] = useState([]);
+
+  const getData = () => {
+    let token = localStorage.getItem("token");
+    let config = {
+      headers: {
+        Authorization: token,
+      },
+    };
+
+    axios
+      .get(`https://test-binar.herokuapp.com/v1/products`, config)
+      .then((json) => {
+        setProduct(json.data.result);
+        console.log("json", json.data.result);
+      });
+  };
+
   return (
     <div>
       <Navbar2 />
+      <Button onClick={() => getData()}>Show data</Button>
       <div
         className="cardcontainer"
-        style={{ marginTop: "5px", flexDirection: "column" }}
+        style={{ marginTop: "5px", display: "flex", overflow: "hidden" }}
       >
-        {Products.map((item, index) => {
-          return (
-            <Card image={item.image} title={item.title} price={item.price} />
-          );
-        })}
+        <CardDeck>
+          {product.map((item, index) => {
+            return (
+              <Card
+                image={item.imageurl}
+                title={item.name}
+                price={item.price}
+                id={item.id}
+              />
+            );
+          })}
+        </CardDeck>
       </div>
     </div>
   );
 }
 
-export default productlist;
+export default Productlist;
