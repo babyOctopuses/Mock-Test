@@ -3,7 +3,7 @@ import { Card } from "react-bootstrap";
 import EditModal from "./EditModal";
 import DeleteModal from "./deleteModal";
 
-function card(props) {
+function Itemcard(props) {
   return (
     <div style={{ display: "flex", columnCount: "3" }}>
       <Card
@@ -23,7 +23,12 @@ function card(props) {
               height: "50vh",
             }}
           >
-            <EditModal />
+            <EditModal
+              id={props.id}
+              name={props.title}
+              price={props.price}
+              imageurl={props.image}
+            />
             <DeleteModal id={props.id} />
           </div>
         </Card.ImgOverlay>
@@ -37,4 +42,4 @@ function card(props) {
   );
 }
 
-export default card;
+export default Itemcard;

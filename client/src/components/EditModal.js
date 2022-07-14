@@ -2,24 +2,51 @@ import React, { useState } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
 import { BiEdit } from "react-icons/bi";
 import axios from "axios";
+import { Navigate } from "react-router-dom";
 
-function Modals() {
+function EditModals(props) {
   const [show, setShow] = useState(false);
-  const [product, setProduct] = useState("");
+  const [name, setName] = useState("");
   const [price, setPrice] = useState("");
-  const [imgUrl, setImgUrl] = useState("");
+  const [imageurl, setImageurl] = useState("");
+  const [APIData, setAPIData] = useState("");
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  let token = localStorage.getItem("token");
+  let config = {
+    headers: {
+      Authorization: token,
+      "Content-Type": "application/json",
+      "access-control-allow-origin": "*",
+    },
+  };
+  const getData = () => {
+    axios
+      .get(`https://62248b256c0e3966204118f3.mockapi.io/api/test/dummyData/`)
+      .then((getData) => {
+        setAPIData(getData.data);
+        // console.log("getData", APIData);
+      });
+  };
 
   const updateAPIData = (id) => {
-    axios.put(
-      `https://private-f25a3d-testbinar.apiary-mock.com/v1/products/${id}`,
-      {
-        product,
-        price,
-        imgUrl,
-      }
-    );
+    axios
+      .put(
+        `https://62248b256c0e3966204118f3.mockapi.io/api/test/dummyData/${id}`,
+        {
+          name,
+          price,
+          imageurl,
+        },
+        config
+      )
+      .then((json) => {
+        handleClose();
+        getData();
+      })
+      .catch((err) => {
+        // console.log("err", err);
+      });
   };
 
   return (
@@ -38,19 +65,37 @@ function Modals() {
           <Form>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Product Name</Form.Label>
-              <Form.Control type="text" placeholder="Product Name" autoFocus />
+              <Form.Control type="text" value={props.id} disabled />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Product Name</Form.Label>
+              <Form.Control
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder={props.name}
+                autoFocus
+              />
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Price</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Price(Dollar USD)"
+                placeholder={props.price}
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
                 autoFocus
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Image Url</Form.Label>
-              <Form.Control type="text" placeholder="Image URL" autoFocus />
+              <Form.Control
+                type="text"
+                placeholder={props.imageurl}
+                value={imageurl}
+                onChange={(e) => setImageurl(e.target.value)}
+                autoFocus
+              />
             </Form.Group>
           </Form>
         </Modal.Body>
@@ -58,7 +103,7 @@ function Modals() {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          <Button variant="primary" onClick={() => updateAPIData(props.id)}>
             Save Changes
           </Button>
         </Modal.Footer>
@@ -67,4 +112,4 @@ function Modals() {
   );
 }
 
-export default Modals;
+export default EditModals;

@@ -5,9 +5,9 @@ import axios from "axios";
 
 function Modals() {
   const [show, setShow] = useState(false);
-  const [product, setProduct] = useState("");
+  const [name, setProduct] = useState("");
   const [price, setPrice] = useState("");
-  const [imgUrl, setImgUrl] = useState("");
+  const [imageurl, setImageurl] = useState("");
   const navigate = useNavigate();
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -21,16 +21,16 @@ function Modals() {
     };
 
     axios.post(
-      `https://test-binar.herokuapp.com/v1/products`,
+      `https://62248b256c0e3966204118f3.mockapi.io/api/test/dummyData/`,
       {
-        name: product,
+        name,
         price,
-        imageurl: imgUrl,
+        imageurl,
       },
       config
     );
+    handleClose();
     navigate("/productlist");
-    // console.log("product: ", product, "price", price,)
   };
 
   return (
@@ -48,8 +48,8 @@ function Modals() {
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Product Name</Form.Label>
               <Form.Control
-                type=""
-                value={product}
+                type="text"
+                value={name}
                 onChange={(e) => setProduct(e.target.value)}
                 placeholder="product"
                 autoFocus
@@ -70,8 +70,8 @@ function Modals() {
               <Form.Control
                 type="text"
                 placeholder="Image URL"
-                value={imgUrl}
-                onChange={(e) => setImgUrl(e.target.value)}
+                value={imageurl}
+                onChange={(e) => setImageurl(e.target.value)}
                 autoFocus
               />
             </Form.Group>

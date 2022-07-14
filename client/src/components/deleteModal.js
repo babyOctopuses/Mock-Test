@@ -23,10 +23,16 @@ function DeleteModal(props) {
     };
 
     axios
-      .delete(`https://test-binar.herokuapp.com/v1/products/${id}`, config)
-      .then(() => {
-        getData();
-        // navigate("/productlist");
+      .delete(
+        `https://62248b256c0e3966204118f3.mockapi.io/api/test/dummyData/${id}`,
+        config
+      )
+      .then((json) => {
+        // console.log("json", json);
+        handleClose();
+      })
+      .catch((err) => {
+        // console.log("err", err);
       });
 
     const getData = () => {
@@ -40,12 +46,9 @@ function DeleteModal(props) {
       axios
         .get(`https://test-binar.herokuapp.com/v1/products`, config)
         .then((json) => {
-          setProduct(json.data.result);
-          console.log("json", json.data.result);
+          console.log("jsonget", json.data.result);
         });
     };
-
-    // console.log("product: ", product, "price", price,)
   };
 
   // const getData = () => {
